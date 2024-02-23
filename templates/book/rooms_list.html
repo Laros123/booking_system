@@ -1,0 +1,9 @@
+{% extends "book/index.html" %}
+{% block body %}
+{% for room in rooms %}
+<h4 style="display: inline; white-space: pre-line;">{{ room }}</h4>
+<h4 style="display: inline; white-space: pre-line;">{{ room.priore }}</h4>
+<BR>
+<BR>
+{% endfor %}
+{% endblock %}
