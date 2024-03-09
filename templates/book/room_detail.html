@@ -1,0 +1,16 @@
+{% extends "book/base.html" %}
+{% block body %}
+<div>
+    <h1>{{ room.number }}</h1>
+
+    <h2>Location: </h2>
+    <h3>{{ room.location }}</h3>
+
+    <h2>Description: </h2>
+    <h3>{{ room.description }}</h3>
+
+    <h2>Room capacity: </h2>
+    <h5>{{ room.capacity }}</h2>
+    
+</div>
+{% endblock %}
