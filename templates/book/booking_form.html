@@ -1,0 +1,30 @@
+{% extends "book/base.html" %}
+{% block body %}
+<div class="container text-center">
+    <h2 class="mb-3 mb-lg-5">Book room</h2>
+    <div style="padding: 3%; margin: auto; width: 80%" class="card border rounded-3 overflow-hidden">
+        <div>
+            <form method="POST" action="{% url 'booking_form' %}">
+            {% csrf_token %}
+                <div class="mb-3">
+                    <label for="room_number" class="form-label">Room_number: </label>
+                    <input type='text' id="room_number" name="room_number" class="form-control">
+                </div>
+                <br>
+                <div class="mb-3">
+                    <label for="start_time" class="form-label">Start_number: </label>
+                    <input type='datetime-local' id="start_time" name="start_time" class="form-control">
+                </div>
+                <br>
+                <div class="mb-3">
+                    <label for="end_time" class="form-label">End_number: </label>
+                    <input type='datetime-local' id="end_time" name="end_time" class="form-control">
+                </div>
+                <br>
+                <button type="submit" class="floating-button">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

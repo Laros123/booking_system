@@ -1,9 +1,37 @@
-{% extends "book/index.html" %}
+{% extends "book/base.html" %}
 {% block body %}
-{% for room in rooms %}
-<h4 style="display: inline; white-space: pre-line;">{{ room }}</h4>
-<h4 style="display: inline; white-space: pre-line;">{{ room.priore }}</h4>
-<BR>
-<BR>
-{% endfor %}
+<div style="width: 75%">
+<h2 class="mb-3 mb-lg-5">Rooms table</h2>
+<div style="margin: auto"> <!-- class="card border rounded-3 overflow-hidden"-->
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Number</th>
+            <th scope="col">Capacity</th>
+            <th scope="col">Location</th>
+            <th scope="col">Priore</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for room in rooms %}
+            <tr>
+                <th>
+                    <h4 style="display: inline; white-space: pre-line;">{{ room.number }}</h4>
+                </th>
+                <th>
+                    <h4 style="display: inline; white-space: pre-line;">{{ room.capacity }}</h4>
+                </th>
+                <th>
+                    <h4 style="display: inline; white-space: pre-line;">{{ room.location }}</h4>
+                </th>
+                <th>
+                    <h4 style="display: inline; white-space: pre-line;">{{ room.priore }}</h4>
+                </th>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
 {% endblock %}
