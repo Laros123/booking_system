@@ -1,0 +1,56 @@
+def get_list_language(language: str) -> dict:
+    if language == 'ukrainian':
+        return UKRAINIAN
+    else:
+        return ENGLISH
+
+UKRAINIAN={
+    'signin': 'Увійти',
+    'signup': 'Зареєструвати',
+    'booking': 'Забронювати',
+    'rooms': 'Кімнати',
+    'logout': 'Вийти',
+    'language': 'Мови',
+    'english': 'Англійська',
+    'ukrainian': 'Українська',
+    'bookroom': 'Забронювати кімнати',
+    'roomfield': 'Номер кімнати',
+    'startdate': 'Початок бронювання',
+    'enddate': 'Кінець бронювання',
+    'submit': 'Відправити',
+    'priore': 'Статус',
+    'free': 'Вільна',
+    'busy': 'Зайнята',
+    'location': 'Локація',
+    'capacity': 'Кількість',
+    'price': 'Ціна',
+    'number': 'Номер',
+    'username': 'Ім\'я користувача',
+    'phone': 'Номер телефону',
+    'search': 'Шукати',
+}
+ENGLISH={
+    'signin': 'sign in',
+    'signup': 'sign up',
+    'rooms': 'Rooms',
+    'booking': 'Booking',
+    'logout': 'Log out',
+    'language': 'Language',
+    'english': 'English',
+    'ukrainian': 'Ukrainian',
+    'bookroom': 'Book room',
+    'roomfield': 'Room number',
+    'startdate': 'Start date book',
+    'enddate': 'End date book',
+    'submit': 'Submit',
+    'priore': 'Priore',
+    'free': 'Free',
+    'busy': 'Busy',
+    'location': 'Location',
+    'capacity': 'Capacity',
+    'price': 'Price',
+    'number': 'Number',
+    'username': 'Username',
+    'phone': 'Phone number',
+    'search': 'Search',
+}

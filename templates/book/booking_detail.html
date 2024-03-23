@@ -1,20 +1,25 @@
-{% extends "book/base.html" %}
+{% extends "base.html" %}
 {% block body %}
-<div>
-    <h2>Room: </h2>
-    <h3>{{ booking.room }}</h3>
 
-    <h2>User: </h2>
-    <h3>{{ booking.user }}</h3>
+<div class="container text-center">
+    <div style="padding: 3%; margin: auto; width: 80%" class="card border rounded-3 container-success overflow-hidden shadow-lg">
+        <div>
+            <h2>Room: </h2>
+            <h3>{{ booking.room }}</h3>
+        
+            <h2>User: </h2>
+            <h3>{{ booking.user }}</h3>
+        
+            <h2>Start time: </h2>
+            <h3>{{ booking.start_time }}</h3>
+        
+            <h2>End time: </h2>
+            <h3>{{ booking.end_time }}</h3>
+        
+            <h2>Creation time: </h2>
+            <h3>{{ booking.creation_time }}</h3>
 
-    <h2>Start time: </h2>
-    <h3>{{ booking.start_time }}</h3>
-
-    <h2>End time: </h2>
-    <h3>{{ booking.end_time }}</h3>
-
-    <h2>Creation time: </h2>
-    <h3>{{ booking.creation_time }}</h3>
-    
+        </div>
+    </div>
 </div>
 {% endblock %}

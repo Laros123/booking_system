@@ -1,27 +1,29 @@
-{% extends "book/base.html" %}
+{% extends "base.html" %}
 {% block body %}
 <div class="container text-center">
-    <h2 class="mb-3 mb-lg-5">Book room</h2>
-    <div style="padding: 3%; margin: auto; width: 80%" class="card border rounded-3 overflow-hidden">
+    <div style="padding: 3%; margin: auto; width: 80%" class="card border rounded-3 container-success overflow-hidden shadow-lg">
+        <div style="margin: auto; width: 100%; padding: 2%" class="card border rounded-4 container-success-light overflow-hidden mb-3">
+            <h2>{{ language.bookroom }}</h2>
+        </div>
         <div>
             <form method="POST" action="{% url 'booking_form' %}">
             {% csrf_token %}
                 <div class="mb-3">
-                    <label for="room_number" class="form-label">Room_number: </label>
+                    <label for="room_number" class="form-label">{{ language.roomfield }} </label>
                     <input type='text' id="room_number" name="room_number" class="form-control">
                 </div>
                 <br>
                 <div class="mb-3">
-                    <label for="start_time" class="form-label">Start_number: </label>
+                    <label for="start_time" class="form-label">{{ language.startdate }} </label>
                     <input type='datetime-local' id="start_time" name="start_time" class="form-control">
                 </div>
                 <br>
                 <div class="mb-3">
-                    <label for="end_time" class="form-label">End_number: </label>
+                    <label for="end_time" class="form-label">{{ language.enddate }}</label>
                     <input type='datetime-local' id="end_time" name="end_time" class="form-control">
                 </div>
                 <br>
-                <button type="submit" class="floating-button">Submit</button>
+                <button type="submit" class="floating-button">{{ language.submit }}</button>
 
             </form>
         </div>

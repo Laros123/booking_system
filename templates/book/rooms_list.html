@@ -1,15 +1,31 @@
-{% extends "book/base.html" %}
+{% extends "base.html" %}
 {% block body %}
-<div style="width: 75%">
-<h2 class="mb-3 mb-lg-5">Rooms table</h2>
-<div style="margin: auto"> <!-- class="card border rounded-3 overflow-hidden"-->
-<table class="table table-dark table-striped">
+<div style="width: 100%">
+<!--<div style="padding: 3%; margin: auto; width: 80%" class="card border rounded-3 overflow-hidden">
+        <h1 class="mb-3 mb-lg-5">Rooms table</h1>
+    </div>
+<div style="margin: auto">  class="card border rounded-3 overflow-hidden"-->
+<!--<table class="table table-blue table-striped">-->
+<div style="padding: 3%; margin: auto; width: 80%" class="card border mb-3 rounded-3 container-success overflow-hidden shadow-lg">
+    <form method="GET" action="{% url 'rooms' %}">
+        <label for="capacity">Capacity</label>
+        <input type="text" id="capacity" name="capacity" class="form-control">
+        <label for="price__gt">Price gt</label>
+        <input type="text" id="price__gt" name="price__gt" class="form-control">
+        <label for="price__lt">Price lt</label>
+        <input type="text" id="price__lt" name="price__lt" class="form-control">
+        <button type="submit" class="floating-button">{{ language.submit }}</button>
+    </form>
+</div>
+
+<table class="table table-bordered table-striped table-success rounded shadow-lg">
     <thead>
         <tr>
-            <th scope="col">Number</th>
-            <th scope="col">Capacity</th>
-            <th scope="col">Location</th>
-            <th scope="col">Priore</th>
+            <th scope="col">{{ language.number }}</th>
+            <th scope="col">{{ language.capacity }}</th>
+            <th scope="col">{{ language.location }}</th>
+            <th scope="col">{{ language.priore }}</th>
+            <th scope="col">{{ language.price }}</th>
         </tr>
     </thead>
 
@@ -17,16 +33,23 @@
         {% for room in rooms %}
             <tr>
                 <th>
-                    <h4 style="display: inline; white-space: pre-line;">{{ room.number }}</h4>
+                    <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ room.number }}</h4>
                 </th>
                 <th>
-                    <h4 style="display: inline; white-space: pre-line;">{{ room.capacity }}</h4>
+                    <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ room.capacity }}</h4>
                 </th>
                 <th>
-                    <h4 style="display: inline; white-space: pre-line;">{{ room.location }}</h4>
+                    <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ room.location }}</h4>
                 </th>
                 <th>
-                    <h4 style="display: inline; white-space: pre-line;">{{ room.priore }}</h4>
+                    {% if room.priore == 'busy' %}
+                        <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ language.busy }}</h4>
+                    {% elif room.priore == 'free' %}
+                        <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ language.free }}</h4>
+                    {% endif %}
+                </th>
+                <th>
+                    <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ room.price }}</h4>
                 </th>
             </tr>
         {% endfor %}

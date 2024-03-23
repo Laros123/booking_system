@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="container">
+    <div style="padding: 3%; margin: auto; width: 80%" class="card border rounded-3 container-success overflow-hidden shadow-lg">
+        <div style="margin: auto; width: 100%; padding: 2%" class="card border rounded-4 container-success-light overflow-hidden mb-3 text-center">
+            <h2>{{ language.signin }}</h2>
+        </div>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+        
+            {{ form.as_p }}
+            <button type="submit" class="floating-button">{{ language.submit }}</button>
+        
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,16 +1,30 @@
-{% extends "book/base.html" %}
+{% extends "base.html" %}
 {% block body %}
-<div>
-    <h1>{{ room.number }}</h1>
+{% if room %}
 
-    <h2>Location: </h2>
-    <h3>{{ room.location }}</h3>
-
-    <h2>Description: </h2>
-    <h3>{{ room.description }}</h3>
-
-    <h2>Room capacity: </h2>
-    <h5>{{ room.capacity }}</h2>
-    
+<div class="container text-center">
+    <div style="padding: 3%; margin: auto; width: 80%" class="card border rounded-3 container-success overflow-hidden shadow-lg">
+        <div>
+            <h2>Number: </h2>
+            <h4>{{ room.number }}</h4>
+        
+            <h2>Room capacity: </h2>
+            <h4>{{ room.capacity }}</h4>
+        
+            <h2>Location: </h2>
+            <h5>{{ room.location }}</h5>
+        
+            <h2>Description: </h2>
+            <h5>{{ room.description }}</h5>
+        
+            <h2>Price: </h2>
+            <h5>{{ room.price }}</h5>
+        </div>
+        {% else %}
+        <div>
+            <h1>This room doesn't exist</h1>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
