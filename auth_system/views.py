@@ -44,11 +44,11 @@ def login_user(request):
     else: 
         form = CustomAuthenticationForm()
 
-        return render(
-            request, 
-            'auth_system/login.html',
-            context={'form': form, 'language': get_list_language(request.session.get('language'))}
-            )
+    return render(
+        request, 
+        'auth_system/login.html',
+        context={'form': form, 'language': get_list_language(request.session.get('language'))}
+        )
 
 
 def logout_user(request):
