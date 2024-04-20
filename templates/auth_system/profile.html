@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container text-center">
+    <div style="padding: 3%; margin: auto; width: 80%" class="card border rounded-3 container-success overflow-hidden shadow-lg">
+        <h2>{{ language.username }}</h2>
+        <p>{{ user.username }}</p>
+        <h2>{{ language.phone }}</h2>
+        <p>{{ user.phone_number }}</p>
+    </div>
+</div>
+{% endblock %}

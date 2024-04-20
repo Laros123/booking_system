@@ -1,16 +1,69 @@
-{% extends "book/base.html" %}
+{% extends "base.html" %}
+{% load static %}
 {% block body %}
-<div>
-    <h1>{{ room.number }}</h1>
+{% if room %}
+<div style="padding: 0;" class="container text-center card border rounded-3 container-success overflow-hidden shadow-lg"><!--{% static 'img/'|add:room.image %}-->
+    <div style="padding: 3%; margin: auto; width: 80%">
+        <div class="row">
+            <div style="margin: auto;" class="col">
+                <img src="{% static 'img/'|add:room.image %}" class="rounded mx-auto d-block w-100" alt="...">
+            </div>
+            <div class="col text-start">
+                <h3>Кімната номер {{ room.number }}</h3>
+                <h3>{{ language.capacity }} {{ room.capacity }}</h3>
+                <h3>{{ language.price }} {{ room.price }}</h3>
+            </div>
+        </div>
+        <div class="mb-4">
+            <h4>{{ language.description }} {{ room.description }}</h4>
+            <h5>{{ language.location }} {{ room.location }}</h5>
+        </div>
+        <div class="mb-4">
+            <h2>{{ language.tags }}</h2>
+            <div class="row demo-grid">
+                {% for tag in room.tags.all %}
+                <div class="col-sm-6 col-lg-4 col-xxl-3 mb-3 demo-grid-item">
+                    <a class="btn btn-success" href="{% url 'rooms' %}?{{tag.name}}=2">{{tag.name}}</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
 
-    <h2>Location: </h2>
-    <h3>{{ room.location }}</h3>
+        <div class="mb-4">
+            <h2>Доступність кімнати №{{ room.number }} на {{ today|date:"F Y" }}</h2>
+            <div style="margin: auto;" class="calendar">
+                {% for day in days_of_month %}
+                    <div class="day {% if day in booked_days %}booked{% else %}free{% endif %}">
+                        {{ day }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% if request.user.is_authenticated %}
+            <div class="mb-4">
+                <div style="margin: auto; width: 100%; padding: 2%" class="card border rounded-4 container-success-light overflow-hidden mb-3">
+                    <h2>{{ language.bookroom }}</h2>
+                </div>
+                <form method="POST" action="{% url 'booking_form' room.number %}">
+                    {% csrf_token %}
+                    
+                    <div class="d-flex align-items-center">
+                        <label for="start_time" class="form-label">{{ language.startdate }} </label>
+                        <input type='datetime-local' id="start_time" name="start_time" class="form-control">
+                        <div class="text-gray-350 mx-2">‒</div>
+                        <input type='datetime-local' id="end_time" name="end_time" class="form-control">
+                        <label for="end_time" class="form-label">{{ language.enddate }}</label>
+                    </div>
+                    <button type="submit" class="floating-button">{{ language.submit }}</button>
 
-    <h2>Description: </h2>
-    <h3>{{ room.description }}</h3>
-
-    <h2>Room capacity: </h2>
-    <h5>{{ room.capacity }}</h2>
-    
+                </form>
+            </div>
+        {% endif %}
+    </div>
 </div>
+{% else %}
+<div>
+    <h1>This room doesn't exist</h1>
+</div>
+{% endif %}
 {% endblock %}

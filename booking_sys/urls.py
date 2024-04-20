@@ -16,8 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from booking_sys.views import ukrainian, english, russian
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('book.urls'))
+    path('', include('book.urls')),
+    path('', include('auth_system.urls')),
+    path('ukrainian', ukrainian, name='ukrainian'),
+    path('english', english, name='english'),
+    path('russian', russian, name='russian'),
 ]
