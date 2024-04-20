@@ -13,7 +13,7 @@
 <body data-bs-theme="light">
     <div style="z-index: -1;background-size: cover;background-repeat: no-repeat;position: fixed;width: 100%; height:100%; background-image: url('https://ic.pics.livejournal.com/babich_yulia/86644166/8986/8986_800.jpg'); opacity: .3"></div>
     <header>
-        <nav style="background-color:rgba(50, 120, 50, 1); padding: .5%" data-bs-theme="dark" class="navbar navbar-expand-lg navbar-light">
+        <nav style="background-color:rgba(67, 123, 67, 1); padding: .5%" data-bs-theme="dark" class="navbar navbar-expand-lg navbar-light">
             <div class="container">
                 <a class="navbar-brand" href="/"><b>Bookings</b></a>
                 <div class="collapse navbar-collapse">
@@ -21,14 +21,14 @@
                         <li class="nav-item">
                             <a style="color: white" class="nav-link text-large" href="/rooms/">{{ language.rooms }}</a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a style="color: white" class="nav-link" href="/booking/">{{ language.booking }}</a>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
                 <form class="form-inline form-navbar my-2 my-lg-0 order-2" method="POST" action="{% url 'room_detail_form' %}">
                     {% csrf_token %}
-                        <input data-bs-theme="light" class="form-control" id="room_number" name="room_number" type="text" placeholder="Search">
+                        <input data-bs-theme="light" class="form-control" id="room_number" name="room_number" type="text" placeholder="{{ language.search }}">
                 </form>
                 <div class="d-none d-lg-flex ml-2 order-3">
                     <ul class="navbar-nav">
@@ -43,18 +43,21 @@
                         {% endif %}
                     <div class="dropdown">
                         <button style="color: white;" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ language.language }}
+                        {{ language.current_lang }}
                         </button>
                         
                         <ul class="dropdown-menu" data-bs-theme="light">
                           <li><a class="dropdown-item" href="/english">{{ language.english }}</a></li>
                           <li><a class="dropdown-item" href="/ukrainian">{{ language.ukrainian }}</a></li>
+                          <li><a class="dropdown-item" href="/russian">{{ language.russian }}</a></li>
                         </ul>
                     </div>
             </div>
         </nav>
         <hr style="margin: 0">
     </header>
+    {% block header %}
+    {% endblock %}
     <br>
     <main class="container-md site-main main">
         {% block body %}

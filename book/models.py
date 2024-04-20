@@ -4,12 +4,21 @@ from django.conf import settings
 
 # Create your models here.
 
+class Tag(models.Model):
+    name=models.CharField(max_length=100)
+    def __str__(self) -> str:
+        return self.name
+
+
 class Room(models.Model):
     number=models.IntegerField()
     capacity=models.IntegerField()
     price=models.IntegerField()
     location=models.TextField()
     description=models.TextField()
+    image=models.CharField(max_length=100, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True)
+
     def __str__(self) -> str:
         return f'''number: {self.number}
           capacity: {self.capacity}

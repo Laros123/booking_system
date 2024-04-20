@@ -24,8 +24,38 @@
   transform: translateY(-7px);
 }
 .container-success {
-  background-color: rgba(204, 225, 216, 1);
+  background-color: rgb(209, 231, 221, 1);
 }
 .container-success-light {
   background: rgb(217, 240, 217);
+}
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  width: 350px; /* Або будь-яка інша ширина, в залежності від розміру квадратиків */
+}
+
+.day {
+  width: 45px; /* Ширина квадратика */
+  height: 45px; /* Висота квадратика */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2px;
+  border-radius: 5px; /* Закруглення країв */
+}
+
+.free {
+  background-color: lightgreen; /* Колір для вільних днів */
+}
+
+.booked {
+  background-color: lightcoral; /* Колір для зайнятих днів */
+}
+
+@media only screen and (min-width: 1300px){
+  .col-2-special {
+    flex: 0 0 auto;
+    width: 16.66666667%;
+  }
 }

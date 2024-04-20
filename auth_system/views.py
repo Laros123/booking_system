@@ -58,11 +58,3 @@ def logout_user(request):
 @login_required
 def profile(request):
     return render(request, 'auth_system/profile.html', {'language': get_list_language(request.session.get('language'))})
-
-def ukrainian(request):
-    request.session['language'] = 'ukrainian'
-    return redirect('/')
-
-def english(request):
-    request.session['language'] = 'english'
-    return redirect('/')

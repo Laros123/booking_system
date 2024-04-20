@@ -1,60 +1,142 @@
 {% extends "base.html" %}
 {% block body %}
-<div style="width: 100%">
+{% load static %}
 <!--<div style="padding: 3%; margin: auto; width: 80%" class="card border rounded-3 overflow-hidden">
         <h1 class="mb-3 mb-lg-5">Rooms table</h1>
     </div>
 <div style="margin: auto">  class="card border rounded-3 overflow-hidden"-->
 <!--<table class="table table-blue table-striped">-->
-<div style="padding: 3%; margin: auto; width: 80%" class="card border mb-3 rounded-3 container-success overflow-hidden shadow-lg">
-    <form method="GET" action="{% url 'rooms' %}">
-        <label for="capacity">Capacity</label>
-        <input type="text" id="capacity" name="capacity" class="form-control">
-        <label for="price__gt">Price gt</label>
-        <input type="text" id="price__gt" name="price__gt" class="form-control">
-        <label for="price__lt">Price lt</label>
-        <input type="text" id="price__lt" name="price__lt" class="form-control">
-        <button type="submit" class="floating-button">{{ language.submit }}</button>
-    </form>
-</div>
-
-<table class="table table-bordered table-striped table-success rounded shadow-lg">
-    <thead>
-        <tr>
-            <th scope="col">{{ language.number }}</th>
-            <th scope="col">{{ language.capacity }}</th>
-            <th scope="col">{{ language.location }}</th>
-            <th scope="col">{{ language.priore }}</th>
-            <th scope="col">{{ language.price }}</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        {% for room in rooms %}
-            <tr>
-                <th>
-                    <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ room.number }}</h4>
-                </th>
-                <th>
-                    <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ room.capacity }}</h4>
-                </th>
-                <th>
-                    <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ room.location }}</h4>
-                </th>
-                <th>
-                    {% if room.priore == 'busy' %}
-                        <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ language.busy }}</h4>
-                    {% elif room.priore == 'free' %}
-                        <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ language.free }}</h4>
-                    {% endif %}
-                </th>
-                <th>
-                    <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ room.price }}</h4>
-                </th>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
-</div>
+<div class="row">
+{% if not 'Mobile' in request.META.HTTP_USER_AGENT %}
+    <div class="col-2-special">
+{% else %}
+    <div>
+{% endif %}
+        <div style="padding: 5%" class=" card border mb-3 rounded-3 container-success overflow-hidden shadow-lg">
+            <form method="GET" action="{% url 'rooms' %}">
+                <p class="fs-4">{{ language.capacity }}</p>
+                <input type="text" id="capacity" name="capacity" class="form-control">
+                <p class="fs-4">{{ language.price }}</p>
+                <div class="d-flex align-items-center">
+                    <input type="number" class="form-control form-control-xs" placeholder="$100.00" min="10" max="999999" value="{% if last_form.price__gt %}{{last_form.price__gt}}{% endif %}" id="price__gt" name="price__gt" >
+                    <div class="text-gray-350 mx-2">‒</div>
+                    <input type="number" class="form-control form-control-xs" placeholder="$1600.00" min="50" max="999999" value="{% if last_form.price__lt %}{{last_form.price__lt}}{% endif %}" id="price__lt" name="price__lt">
+                  </div>
+                <p class="fs-4">{{ language.sortby }}</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort_by" value="number" id="numberRadio" checked>
+                    <label class="form-check-label" for="numberRadio">{{ language.number }}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort_by" value="price_decreasing" id="price_decreasingRadio" {% if last_form.sort_by == 'price_decreasing' %}checked{% endif %}>
+                    <label class="form-check-label" for="price_decreasingRadio">{{ language.pricedecreasing }}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort_by" value="price_increase" id="price_increaseRadio" {% if last_form.sort_by == 'price_increase' %}checked{% endif %}>
+                    <label class="form-check-label" for="price_increaseRadio">{{ language.priceincrease }}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort_by" value="capacity" id="capacityRadio" {% if last_form.sort_by == 'capacity' %}checked{% endif %}>
+                    <label class="form-check-label" for="capacityRadio">{{ language.capacity }}</label>
+                </div>
+                <p class="fs-4">{{ language.category }}</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category" value="all" id="allRadio" checked>
+                    <label class="form-check-label" for="allRadio">{{ language.all }}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category" value="Economy" id="economyRadio" {% if last_form.category == 'Economy' %}checked{% endif %}>
+                    <label class="form-check-label" for="economyRadio">{{ language.economy }}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category" value="Standart" id="standartRadio" {% if last_form.category == 'Standart' %}checked{% endif %}>
+                    <label class="form-check-label" for="standartRadio">{{ language.standart }}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category" value="Lux" id="luxRadio" {% if last_form.category == 'Lux' %}checked{% endif %}>
+                    <label class="form-check-label" for="luxRadio">{{ language.lux }}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category" value="Semi delux" id="semideluxRadio" {% if last_form.category == 'Semi delux' %}checked{% endif %}>
+                    <label class="form-check-label" for="semideluxRadio">{{ language.semidelux }}</label>
+                </div>
+                <p class="fs-4">{{ language.tags }}</p>
+                <div class="form-check">
+                    <input class="form-check-input" name="Bathroom_included" type="checkbox" id="BathroomChecked" {% if last_form.Bathroom_included %}checked{% endif %}>
+                    <label class="form-check-label" for="BathroomChecked">{{ language.bathroom_tag }}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="Refrigerator_included" type="checkbox" id="RefrigeratorChecked" {% if last_form.Refrigerator_included %}checked{% endif %}>
+                    <label class="form-check-label" for="RefrigeratorChecked">{{ language.refrigerator_tag }}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="Image" type="checkbox" id="ImageChecked" {% if last_form.Image %}checked{% endif %}>
+                    <label class="form-check-label" for="ImageChecked">{{ language.image_tag }}</label>
+                </div>
+                <button type="submit" class="floating-button">{{ language.submit }}</button>
+            </form>
+        </div>
+    </div>
+    <div class="col">
+        <div class="row g-4 g-xl-7 demo-grid">
+            {% for room in rooms %}
+                <div class="col-sm-6 col-lg-4 col-xxl-3 demo-grid-item">
+                    <div class="card card-hover-shadow border">
+                        <!-- Image -->
+                        <img src="{% static 'img/'|add:room.image %}" class="card-img-top" alt="">
+                        <!-- card body -->
+                        <div class="card-body border-top">
+                            <h6 class="mb-0"><a href="{% url 'room_detail' room.number %}" class="stretched-link">Більш детально про кімнату</a></h6>
+                            <div class="row">
+                                <div style="margin: auto;" class="col">
+                                    <small>{{ room.description }}</small>
+                                </div>
+                                <div class="col text-end">
+                                    <small>{{ room.price }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!--<table class="table table-bordered table-striped table-success rounded shadow-lg">
+            <thead>
+                <tr>
+                    <th scope="col">{{ language.number }}</th>
+                    <th scope="col">{{ language.capacity }}</th>
+                    <th scope="col">{{ language.location }}</th>
+                    <th scope="col">{{ language.priore }}</th>
+                    <th scope="col">{{ language.price }}</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                {% for room in rooms %}
+                    <tr>
+                        <th>
+                            <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ room.number }}</h4>
+                        </th>
+                        <th>
+                            <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ room.capacity }}</h4>
+                        </th>
+                        <th>
+                            <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ room.location }}</h4>
+                        </th>
+                        <th>
+                            {% if room.priore == 'busy' %}
+                                <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ language.busy }}</h4>
+                            {% elif room.priore == 'free' %}
+                                <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ language.free }}</h4>
+                            {% endif %}
+                        </th>
+                        <th>
+                            <h4 style="color:rgb(0, 14, 27); display: inline; white-space: pre-line;">{{ room.price }}</h4>
+                        </th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>-->
+    </div>
 </div>
 {% endblock %}
